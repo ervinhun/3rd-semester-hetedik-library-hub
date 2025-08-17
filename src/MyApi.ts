@@ -1,5 +1,6 @@
-import {Api} from "../Api.ts";
+import { Api } from "../Api.ts";
 
-export const MyApi = new Api({
+export const MyApiActivities = new Api({
     baseUrl: 'https://fakerestapi.azurewebsites.net'
 });
+
