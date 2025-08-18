@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import type {Book} from "../../Api.ts";
 import {MyApiActivities} from "../MyApi.ts"
+import {bodyTextColor, subPageCardTitle, subPageDiv1, subPageDiv2, subPageDivCard, subPageTitle} from "../Format.ts";
 
 export default function Books() {
 
@@ -13,52 +14,38 @@ export default function Books() {
         })
     }
 
-    function formatDate(date: string) {
-        return new Date(date).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        });
-    }
-
     const [activities, setActivities] = useState<Book[]>([])
 
-    // load activities when component mounts
     useEffect(() => {
         getBooks()
     }, [])
 
     return (
-        <>
-            <div className="subpage-background">
-                <div className="sub-header">
-                    <p>📅 Activities</p>
+
+            <>
+                <div className={subPageDiv1}>
+                    <p className={subPageTitle}>📖 Books</p>
                 </div>
-                <div className="activity-form">
+                <div className={subPageDiv2}>
                     {
                         activities.map(activity => {
                             return (
-                                <>
-                                    <div key={activity.id} className="activity-card">
+                                    <div key={activity.id} className={subPageDivCard}>
                                         {/* Inline editable title */}
-                                        <p className="activity-title">
+                                        <p className={subPageCardTitle}>
                                             {activity.title}
                                         </p>
-                                        <div key={activity.id + "jk"} className="activity-body">
-                                            <p className="activity-due-date">Description: {activity.description}</p>
-                                            <p className="activity-body">Pages: {activity.pageCount}</p>
-                                            <p className="activity-body">{activity.excerpt}</p>
-                                            <p className="activity-body">{formatDate(activity.publishDate)}</p>
+                                        <div key={activity.id + "jk"}>
+                                            <p className={bodyTextColor}><strong>Description:</strong> {activity.description}</p>
+                                            <p className={bodyTextColor}><strong>Pages:</strong> {activity.pageCount}</p>
+                                            <p className={bodyTextColor}><strong>Excerpt:</strong> {activity.excerpt}</p>
+                                            <p className={bodyTextColor}><strong>Publish date:</strong> {new Date(activity.publishDate!)!.toLocaleDateString()}</p>
                                         </div>
                                     </div>
-
-                                </>
                             )
                         })
                     }
                 </div>
-            </div>
-
-        </>
+            </>
     )
 }

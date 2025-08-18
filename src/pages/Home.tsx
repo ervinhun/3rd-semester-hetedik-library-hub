@@ -6,21 +6,19 @@ export default function Home() {
 
 
     return (
-        <>
-            <div className="home-background">
-                <div className="header">
-                    <h1 className="header-text">📖 LibraryHub</h1>
+            <div className="flex flex-wrap bg-blue-400 w-4/5 m-auto padding-4 rounded-lg shadow-lg">
+                <div className="flex bg-blue-500 justify-between items-center p-4 w-full rounded-lg">
+                    <h1 className="font-bold text-4xl">📖 LibraryHub</h1>
                     <div className="nav-links">
-                        <button onClick={() => navigate("activities")}>Activities</button>
-                        <button onClick={() => navigate("authors")}>Authors</button>
-                        <button onClick={() => navigate("books")}>Books</button>
+                        <button className="btn btn-ghost" onClick={() => navigate("activities")}>Activities</button>
+                        <button className="btn btn-ghost" onClick={() => navigate("authors")}>Authors</button>
+                        <button className="btn btn-ghost" onClick={() => navigate("books")}>Books</button>
                     </div>
                 </div>
 
-                <div className="main-section">
+                <div className="flex flex-wrap w-5/6 bg-blue-800 m-auto rounded-lg mt-8 shadow-lg p-4 content-center">
                     {<Outlet/>}
                 </div>
             </div>
-        </>
     )
 }

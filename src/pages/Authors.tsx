@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import type {Author, Book} from "../../Api.ts";
 import {MyApiActivities} from "../MyApi.ts"
+import {bodyTextColor, subPageCardTitle, subPageDiv1, subPageDiv2, subPageDivCard, subPageTitle} from "../Format.ts";
 
 export default function Authors() {
 
@@ -22,40 +23,33 @@ export default function Authors() {
     const [activities, setActivities] = useState<Author[]>([])
     const [books, setBooks] = useState<Book[]>([])
 
-    // load activities when component mounts
     useEffect(() => {
         getAuthors()
         getBooks()
     }, [])
 
     return (
-        <>
-            <div className="subpage-background">
-                <div className="sub-header">
-                    <p>👱 Authors</p>
+            <>
+                <div className={subPageDiv1}>
+                    <p className={subPageTitle}>👱 Authors</p>
                 </div>
-                <div className="activity-form">
+                <div className={subPageDiv2}>
                     {
                         activities.map(activity => {
                             return (
-                                <>
-                                    <div key={activity.id} className="activity-card">
+                                    <div key={activity.id} className={subPageDivCard}>
                                         {/* Inline editable title */}
-                                        <p className="activity-title">
+                                        <p className={subPageCardTitle}>
                                             {activity.firstName} {activity.lastName}
                                         </p>
-                                        <p className="activity-due-date">
+                                        <p className={bodyTextColor}>
                                             Book: {books.find(book => book.id === activity.idBook)?.title || "Unknown"}
                                         </p>
                                     </div>
-
-                                </>
                             )
                         })
                     }
                 </div>
-            </div>
-
-        </>
+            </>
     )
 }

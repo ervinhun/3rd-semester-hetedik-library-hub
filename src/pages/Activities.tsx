@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import type {Activity} from "../../Api.ts";
 import {MyApiActivities} from "../MyApi.ts"
+import {bodyTextColor, subPageCardTitle, subPageDiv1, subPageDiv2, subPageDivCard, subPageTitle} from "../Format.ts";
 
 export default function Activities() {
+
 
     // READ all activities
     function getActivities() {
@@ -13,50 +15,35 @@ export default function Activities() {
         })
     }
 
-    function formatDate(date: string) {
-        return new Date(date).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        });
-    }
-
     const [activities, setActivities] = useState<Activity[]>([])
 
-    // load activities when component mounts
     useEffect(() => {
         getActivities()
     }, [])
 
     return (
-        <>
-            <div className="subpage-background">
-                <div className="sub-header">
-                    <p>📅 Activities</p>
+            <>
+                <div className={subPageDiv1}>
+                    <p className={subPageTitle}>📅 Activities</p>
                 </div>
-                <div className="activity-form">
+                <div className={subPageDiv2} >
                     {
                         activities.map(activity => {
                             return (
-                                <>
-                                    <div key={activity.id} className="activity-card">
+                                    <div key={activity.id} className={subPageDivCard}>
                                         {/* Inline editable title */}
-                                        <p className="activity-title">
+                                        <p className={subPageCardTitle}>
                                             {activity.title}
                                         </p>
-                                        <div key={activity.id + "jk"} className="activity-body">
-                                            <p className="activity-due-date">Due Date: {formatDate(activity.dueDate)}</p>
-                                            <p className="activity-body">Completed: {activity.completed ? "✅" : "X"}</p>
+                                        <div key={activity.id + "jk"}>
+                                            <p className={bodyTextColor}>Due Date: {new Date(activity.dueDate!)!.toLocaleString()}</p>
+                                            <p className={bodyTextColor}>Completed: {activity.completed ? "✅" : "X"}</p>
                                         </div>
                                     </div>
-
-                                </>
                             )
                         })
                     }
                 </div>
-            </div>
-
-        </>
+            </>
     )
 }
